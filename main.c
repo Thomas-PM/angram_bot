@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 
 
 
@@ -31,18 +32,25 @@ int main(void){
     sz++;
     rewind(fp);
     char *dict = (char *) malloc(sz*sizeof(char));
-
+    dict[0] = '\0';
 
 	while ((read = getline(&line, &len, fp)) != -1) {
-        
-        
+        line[strlen(line)-1] = ' '; 
+        line[strlen(line)] = '\0'; 
+        strcat(dict, line); 
     }
 
+    char *buffer = (char *) malloc(50*sizeof(char));
+    memcpy(buffer, dict, 50); 
+
+    printf("%s\n", buffer);
 
 	fclose(fp);
 	if(line){
 		free(line);
     }
+    free(dict);
+    free(buffer);
 
 	exit(0);
 }
