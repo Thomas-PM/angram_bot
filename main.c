@@ -4,16 +4,12 @@
 #include <stdint.h>
 
 
-int contains(const char* in){
-    int i = 0; 
-    while(in[i] != 0){
-        if(in[i] == '\''){
-            return 1;
-        }
-        i++;
-    }
-    return 0;
+
+int in_dict(const char* word, const char* dict, size_t dict_size){
+
+
 }
+
 
 
 int main(void){
@@ -23,30 +19,27 @@ int main(void){
     size_t len = 0;
     ssize_t read;
 
-    printf("char %c\n", '\'');
 
-	if ((fp = fopen("dict_in.txt","r")) == NULL){
+	if ((fp = fopen("dict.txt","r")) == NULL){
 	   printf("Error opening file");
 	   // Program exits if the file pointer returns NULL.
 	   exit(1);
 	}
-	if ((fpout = fopen("dict.txt","w")) == NULL){
-	   printf("Error opening file");
-	   // Program exits if the file pointer returns NULL.
-	   exit(1);
-	}
+
+    fseek(fp, 0L, SEEK_END);
+    int sz = ftell(fp);
+    sz++;
+    rewind(fp);
+    char *dict = (char *) malloc(sz*sizeof(char));
+
 
 	while ((read = getline(&line, &len, fp)) != -1) {
-        if(!contains(line)){
-            printf("%s", line);
-            fprintf(fpout, "%s", line);
-        }
+        
         
     }
 
 
 	fclose(fp);
-	fclose(fpout);
 	if(line){
 		free(line);
     }
